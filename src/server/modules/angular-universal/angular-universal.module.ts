@@ -15,7 +15,7 @@ import { FOLDER_DIST_BROWSER } from '../../../shared/shared.constants';
 
 @Module({
   controllers: [AngularUniversalController],
-  components: [...angularUniversalProviders],
+  providers: [...angularUniversalProviders],
 })
 export class AngularUniversalModule implements NestModule {
   constructor(
@@ -42,6 +42,6 @@ export class AngularUniversalModule implements NestModule {
   configure(consumer: MiddlewaresConsumer): void {
     consumer
       .apply(express.static(this.ngOptions.viewsPath))
-      .forRoutes({ path: '*.*', method: RequestMethod.GET });
+      .forRoutes('*.*');
   }
 }

@@ -21,7 +21,7 @@ import { bodyValidatorMiddleware } from './middlewares/body-validator.middleware
 
 @Module({
   imports: [UserModule],
-  components: [
+  providers: [
     ...authProviders,
     AuthService,
     LocalStrategy,
@@ -40,29 +40,29 @@ export class AuthModule implements NestModule {
         bodyValidatorMiddleware,
         authenticate('local-signup', { session: false })
       ])
-      .forRoutes({ path: 'api/auth/local/signup', method: RequestMethod.POST });
+      .forRoutes('api/auth/local/signup');
 
     consumer
       .apply([
         bodyValidatorMiddleware,
         authenticate('local-signin', { session: false })
       ])
-      .forRoutes({ path: 'api/auth/local/signin', method: RequestMethod.POST });
+      .forRoutes('api/auth/local/signin');
 
     consumer
       .apply(authenticate('facebook', { session: false }))
-      .forRoutes({ path: 'api/auth/facebook/token', method: RequestMethod.POST });
+      .forRoutes('api/auth/facebook/token');
 
     consumer
       .apply(authenticate('twitter', { session: false }))
-      .forRoutes({ path: 'api/auth/twitter/token', method: RequestMethod.POST });
+      .forRoutes('api/auth/twitter/token');
 
     consumer
       .apply(authenticate('google', { session: false }))
-      .forRoutes({ path: 'api/auth/google/token', method: RequestMethod.POST });
+      .forRoutes('api/auth/google/token');
 
     consumer
       .apply(authenticate('jwt', { session: false }))
-      .forRoutes({ path: 'api/auth/authorized', method: RequestMethod.ALL });
+      .forRoutes('api/auth/authorized');
   }
 }
